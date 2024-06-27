@@ -10,6 +10,7 @@ namespace GestaoDeResiduos.Infra
         public virtual DbSet<UserModel> Users { get; set; }
         public virtual DbSet<StateModel> States { get; set; }
         public virtual DbSet<RegionModel> Regions { get; set; }
+        public virtual DbSet<GarbageCollectionTypeModel> GarbageCollectionTypes { get; set; }
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
         }
@@ -144,6 +145,24 @@ namespace GestaoDeResiduos.Infra
                         .WithMany()
                         .HasForeignKey(e => e.DistrictId)
                         .OnDelete(DeleteBehavior.Restrict);
+            });
+            
+            //tipo de coleta
+            modelBuilder.Entity<GarbageCollectionTypeModel>(entity =>
+            {
+                  entity.ToTable("GARBAGE_COLLECTION_TYPES");
+
+                  entity.HasKey(e => e.Id);
+
+                  entity.Property(e => e.Id)
+                        .HasColumnName("ID")
+                        .HasDefaultValueSql("GARBAGE_COLLECTION_SEQ.NEXTVAL")
+                        .ValueGeneratedOnAdd();
+
+                  entity.Property(e => e.Name)
+                        .IsRequired()
+                        .HasColumnName("NAME");
+                  
             });
 
 
