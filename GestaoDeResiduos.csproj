@@ -40,6 +40,7 @@
     <Compile Remove="Migrations\20240627090408_AddEstadoTable.Designer.cs" />
     <Compile Remove="Migrations\20240627090925_AddEstadoTable.cs" />
     <Compile Remove="Migrations\20240627090925_AddEstadoTable.Designer.cs" />
+    <Compile Remove="Services\Impl\CollectionDay.cs" />
   </ItemGroup>
 
   <ItemGroup>

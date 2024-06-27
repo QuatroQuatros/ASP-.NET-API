@@ -22,9 +22,13 @@ public class GarbageCollectionTypeController : Controller
     
     
     [HttpGet]
-    public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int size = 10)
+    public async Task<IActionResult> GetAll([FromQuery] Pagination pagination)
     {
-        var paginatedResult = await _garbageCollectionTypeService.GetPaginatedAsync(page, size);
+        if (pagination.isInvalid())
+        {
+            return BadRequest(new BaseApiResponse<PaginatedResponse<GarbageCollectionTypeViewModelResponse>>("Página ou tamanho da página inválidos.", null));
+        }
+        var paginatedResult = await _garbageCollectionTypeService.GetPaginatedAsync(pagination.Page, pagination.Size);
         return Ok(new BaseApiResponse<PaginatedResponse<GarbageCollectionTypeViewModelResponse>>("Tipos de coleta recuperados com sucesso.", paginatedResult));
     }
 

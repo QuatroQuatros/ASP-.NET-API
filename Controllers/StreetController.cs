@@ -23,9 +23,13 @@ public class StreetController : Controller
     
     
     [HttpGet]
-    public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int size = 10)
+    public async Task<IActionResult> GetAll([FromQuery] Pagination pagination)
     {
-        var paginatedResults = await _streetService.GetPaginatedAsync(page, size);
+        if (pagination.isInvalid())
+        {
+            return BadRequest(new BaseApiResponse<PaginatedResponse<StateViewModelResponse>>("Página ou tamanho da página inválidos.", null));
+        }
+        var paginatedResults = await _streetService.GetPaginatedAsync(pagination.Page, pagination.Size);
         return Ok(new BaseApiResponse<PaginatedResponse<StreetViewModelResponse>>("Ruas recuperadas com sucesso.", paginatedResults));
     }
 

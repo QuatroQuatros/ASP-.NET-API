@@ -34,9 +34,13 @@ public class UserController : ControllerBase
     }
     
     [HttpGet]
-    public async Task<IActionResult> GetAll([FromQuery]int page = 1, [FromQuery]int size = 10)
+    public async Task<IActionResult> GetAll([FromQuery] Pagination pagination)
     {
-        var paginatedResults = await _userService.GetUsersPaginatedAsync(page, size);
+        if (pagination.isInvalid())
+        {
+            return BadRequest(new BaseApiResponse<PaginatedResponse<UserViewModelResponse>>("Página ou tamanho da página inválidos.", null));
+        }
+        var paginatedResults = await _userService.GetUsersPaginatedAsync(pagination.Page, pagination.Size);
         return Ok(new BaseApiResponse<PaginatedResponse<UserViewModelResponse>>("Usuários recuperados com sucesso.", paginatedResults));
     }
     

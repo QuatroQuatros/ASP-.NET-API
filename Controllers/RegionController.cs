@@ -24,9 +24,13 @@ public class RegionController : Controller
     
     
     [HttpGet]
-    public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int size = 10)
+    public async Task<IActionResult> GetAll([FromQuery] Pagination pagination)
     {
-        var paginatedResult = await _regionService.GetPaginatedAsync(page, size);
+        if (pagination.isInvalid())
+        {
+            return BadRequest(new BaseApiResponse<PaginatedResponse<RegionViewModelResponse>>("Página ou tamanho da página inválidos.", null));
+        }
+        var paginatedResult = await _regionService.GetPaginatedAsync(pagination.Page, pagination.Size);
         return Ok(new BaseApiResponse<PaginatedResponse<RegionViewModelResponse>>("Regiões recuperadas com sucesso.", paginatedResult));
     }
 

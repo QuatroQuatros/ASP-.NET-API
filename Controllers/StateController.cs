@@ -5,6 +5,7 @@ using GestaoDeResiduos.ViewModels;
 using GestaoDeResiduos.ViewModels.Update;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace GestaoDeResiduos.Controllers
 {
@@ -21,12 +22,16 @@ namespace GestaoDeResiduos.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int size = 10)
+        public async Task<IActionResult> GetAll([FromQuery] Pagination pagination)
         {
-            var paginatedResults = await _stateService.GetPaginatedAsync(page, size);
+            if (pagination.isInvalid())
+            {
+                return BadRequest(new BaseApiResponse<PaginatedResponse<StateViewModelResponse>>("Página ou tamanho da página inválidos.", null));
+            }
+            var paginatedResults = await _stateService.GetPaginatedAsync(pagination.Page, pagination.Size);
             return Ok(new BaseApiResponse<PaginatedResponse<StateViewModelResponse>>("Estados recuperados com sucesso.", paginatedResults));
         }
-
+        
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
@@ -91,3 +96,4 @@ namespace GestaoDeResiduos.Controllers
         }
     }
 }
+

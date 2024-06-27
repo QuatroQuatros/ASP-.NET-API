@@ -10,6 +10,7 @@ namespace GestaoDeResiduos.Infra
         public virtual DbSet<UserModel> Users { get; set; }
         public virtual DbSet<StateModel> States { get; set; }
         public virtual DbSet<RegionModel> Regions { get; set; }
+        public virtual DbSet<CollectionDayModel> CollectionDays { get; set; }
         public virtual DbSet<GarbageCollectionTypeModel> GarbageCollectionTypes { get; set; }
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
@@ -163,6 +164,49 @@ namespace GestaoDeResiduos.Infra
                         .IsRequired()
                         .HasColumnName("NAME");
                   
+            });
+            
+            //dias de coleta
+            modelBuilder.Entity<CollectionDayModel>(entity =>
+            {
+                  entity.ToTable("COLLECTION_DAY");
+
+                  entity.HasKey(e => e.Id);
+
+                  entity.Property(e => e.Id)
+                        .HasColumnName("ID")
+                        .HasDefaultValueSql("COLLECTION_DAY_SEQ.NEXTVAL")
+                        .ValueGeneratedOnAdd();
+
+                  entity.Property(e => e.StreetId)
+                        .IsRequired()
+                        .HasColumnName("STREET_ID");
+
+                  entity.Property(e => e.GarbageCollectionTypeId)
+                        .IsRequired()
+                        .HasColumnName("GARBAGE_COLLECTION_TYPE_ID");
+
+                  entity.Property(e => e.ScheduleDate)
+                        .IsRequired()
+                        .HasColumnName("SCHEDULE_DATE");
+
+                  entity.Property(e => e.CollectionDate)
+                        .HasColumnName("COLLECTION_DATE");
+
+                  entity.Property(e => e.Status)
+                        .IsRequired()
+                        .HasColumnName("STATUS")
+                        .HasDefaultValue(CollectionStatus.Agendado);
+                        //.HasConversion<int>();
+
+                  // Relacionamentos
+                  entity.HasOne(e => e.Street)
+                        .WithMany()
+                        .HasForeignKey(e => e.StreetId);
+
+                  entity.HasOne(e => e.GarbageCollectionType)
+                        .WithMany()
+                        .HasForeignKey(e => e.GarbageCollectionTypeId);
             });
 
 

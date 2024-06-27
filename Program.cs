@@ -84,6 +84,7 @@ builder.Services.AddSingleton<IMapper>(mapper);
 
 #region Services
 
+builder.Services.AddScoped<ICollectionDayService, CollectionDayService>();
 builder.Services.AddScoped<IDistrictService, DistrictService>();
 builder.Services.AddScoped<IGarbageCollectionTypeService, GarbageCollectionTypeService>();
 builder.Services.AddScoped<IRegionService, RegionService>();
@@ -96,6 +97,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 
 #region Repositories
 
+builder.Services.AddScoped(typeof(ICollectionDayRepository), typeof(CollectionDayRepository));
 builder.Services.AddScoped<IDistrictRepository, DistrictRepository>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IUserRepository, UserRepository>();
