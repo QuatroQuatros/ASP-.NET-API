@@ -19,7 +19,7 @@ public class Pagination
     }
     public bool isValid()
     {
-        return (Page > 0 && Size > 5);
+        return (Page > 0 && Size >= 5);
 
     }
     

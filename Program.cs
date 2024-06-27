@@ -86,6 +86,7 @@ builder.Services.AddSingleton<IMapper>(mapper);
 
 builder.Services.AddScoped<ICollectionDayService, CollectionDayService>();
 builder.Services.AddScoped<IDistrictService, DistrictService>();
+builder.Services.AddScoped<IGarbageCollectedService, GarbageCollectedService>();
 builder.Services.AddScoped<IGarbageCollectionTypeService, GarbageCollectionTypeService>();
 builder.Services.AddScoped<IRegionService, RegionService>();
 builder.Services.AddScoped<IStateService, StateService>();
@@ -105,6 +106,7 @@ builder.Services.AddScoped(typeof(IRegionRepository), typeof(RegionRepository));
 builder.Services.AddScoped(typeof(IStateRepository), typeof(StateRepository));
 builder.Services.AddScoped(typeof(IStreetRepository), typeof(StreetRepository));
 builder.Services.AddScoped(typeof(IGarbageCollectionTypeRepository), typeof(GarbageCollectionTypeRepository));
+builder.Services.AddScoped(typeof(IGarbageCollectedRepository), typeof(GarbageCollectedRepository));
 
 
 

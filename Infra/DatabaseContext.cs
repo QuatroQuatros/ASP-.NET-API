@@ -208,7 +208,23 @@ namespace GestaoDeResiduos.Infra
                         .WithMany()
                         .HasForeignKey(e => e.GarbageCollectionTypeId);
             });
+            
+            //coleta de lixo
+            modelBuilder.Entity<GarbageCollectedModel>(entity =>
+            {
+                  entity.ToTable("GARBAGE_COLLECTED");
 
+                  entity.HasKey(e => e.Id);
+
+                  entity.Property(e => e.Id)
+                        .HasColumnName("ID")
+                        .HasDefaultValueSql("GARBAGE_COLLECTED_SEQ.NEXTVAL")
+                        .ValueGeneratedOnAdd();
+
+                  entity.Property(e => e.Amount)
+                        .IsRequired()
+                        .HasColumnName("AMOUNT");
+            });
 
             base.OnModelCreating(modelBuilder);
         }
