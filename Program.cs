@@ -84,6 +84,7 @@ builder.Services.AddSingleton<IMapper>(mapper);
 
 #region Services
 
+builder.Services.AddScoped<IRegionService, RegionService>();
 builder.Services.AddScoped<IStateService, StateService>();
 builder.Services.AddScoped<IUserService, UserService>();
 
@@ -94,7 +95,9 @@ builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped(typeof(IRegionRepository), typeof(RegionRepository));
 builder.Services.AddScoped(typeof(IStateRepository), typeof(StateRepository));
+
 
 
 #endregion

@@ -8,6 +8,7 @@ namespace GestaoDeResiduos.Infra
 
         public virtual DbSet<UserModel> Users { get; set; }
         public virtual DbSet<StateModel> States { get; set; }
+        public virtual DbSet<RegionModel> Regions { get; set; }
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
         }
@@ -63,6 +64,32 @@ namespace GestaoDeResiduos.Infra
                   entity.Property(e => e.Name).IsRequired().HasColumnName("NAME");
                   entity.Property(e => e.UF).IsRequired().HasMaxLength(2).HasColumnName("UF");;
                   entity.HasIndex(e => e.UF).IsUnique().HasDatabaseName("IDX_UF");
+            });
+            
+            //regioes
+            modelBuilder.Entity<RegionModel>(entity =>
+            {
+                  entity.ToTable("REGIONS");
+
+                  entity.HasKey(e => e.Id);
+
+                  entity.Property(e => e.Id)
+                        .HasColumnName("ID")
+                        .HasDefaultValueSql("REGIONS_SEQ.NEXTVAL")
+                        .ValueGeneratedOnAdd();
+
+                  entity.Property(e => e.Name)
+                        .IsRequired()
+                        .HasColumnName("NAME");
+
+                  entity.Property(e => e.StateId)
+                        .IsRequired()
+                        .HasColumnName("STATE_ID");
+
+                  entity.HasOne(e => e.State)
+                        .WithMany()
+                        .HasForeignKey(e => e.StateId)
+                        .OnDelete(DeleteBehavior.Restrict);
             });
 
             base.OnModelCreating(modelBuilder);

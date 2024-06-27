@@ -38,7 +38,7 @@ namespace GestaoDeResiduos.Repositories.Impl
             var entity = await _context.Set<T>().FindAsync(id);
             if (entity == null)
             {
-                throw new NotFoundException($"Entidade de {id} não encontrada.");
+                throw new NotFoundException($"Entidade de ID {id} não encontrada.");
             }
             return entity;
         }
