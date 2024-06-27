@@ -33,6 +33,13 @@
     <Compile Remove="GestaoDeResiduos.Test\bin\**" />
     <Compile Remove="GestaoDeResiduos.Test\obj\**" />
     <Compile Remove="GestaoDeResiduos.Test\**" />
+    <Compile Remove="Migrations\20240627090326_AddEstadoTable.cs" />
+    <Compile Remove="Migrations\20240627090326_AddEstadoTable.Designer.cs" />
+    <Compile Remove="Migrations\DatabaseContextModelSnapshot.cs" />
+    <Compile Remove="Migrations\20240627090408_AddEstadoTable.cs" />
+    <Compile Remove="Migrations\20240627090408_AddEstadoTable.Designer.cs" />
+    <Compile Remove="Migrations\20240627090925_AddEstadoTable.cs" />
+    <Compile Remove="Migrations\20240627090925_AddEstadoTable.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -3,6 +3,7 @@ using System;
 using GestaoDeResiduos.Infra;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oracle.EntityFrameworkCore.Metadata;
 
@@ -11,9 +12,11 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace GestaoDeResiduos.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240627090925_AddEstadoTable")]
+    partial class AddEstadoTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,7 +30,7 @@ namespace GestaoDeResiduos.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("ID")
-                        .HasDefaultValueSql("STATES_SEQ.NEXTVAL");
+                        .HasDefaultValueSql("ESTADOS_SEQ.NEXTVAL");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -42,7 +45,7 @@ namespace GestaoDeResiduos.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("STATES", (string)null);
+                    b.ToTable("ESTADOS", (string)null);
                 });
 
             modelBuilder.Entity("GestaoDeResiduos.Models.UserModel", b =>

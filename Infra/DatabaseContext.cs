@@ -7,13 +7,15 @@ namespace GestaoDeResiduos.Infra
     {
 
         public virtual DbSet<UserModel> Users { get; set; }
+        public virtual DbSet<StateModel> States { get; set; }
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+              
+            //usuarios
             modelBuilder.Entity<UserModel>(entity =>
             {
                 entity.ToTable("USERS");
@@ -22,7 +24,8 @@ namespace GestaoDeResiduos.Infra
 
                 entity.Property(e => e.Id)
                       .HasColumnName("ID")
-                      .HasDefaultValueSql("USERS_SEQ.NEXTVAL");
+                      .HasDefaultValueSql("USERS_SEQ.NEXTVAL")
+                      .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Name)
                       .IsRequired()
@@ -48,6 +51,18 @@ namespace GestaoDeResiduos.Infra
                       .IsRequired()
                       .HasColumnName("ROLE");
 
+            });
+            
+            //estados
+            modelBuilder.Entity<StateModel>(entity =>
+            {
+                  entity.ToTable("STATES");
+                  entity.HasKey(e => e.Id);
+                  
+                  entity.Property(e => e.Id).HasColumnName("ID").HasDefaultValueSql("STATES_SEQ.NEXTVAL").ValueGeneratedOnAdd();
+                  entity.Property(e => e.Name).IsRequired().HasColumnName("NAME");
+                  entity.Property(e => e.UF).IsRequired().HasMaxLength(2).HasColumnName("UF");;
+                  entity.HasIndex(e => e.UF).IsUnique().HasDatabaseName("IDX_UF");
             });
 
             base.OnModelCreating(modelBuilder);
