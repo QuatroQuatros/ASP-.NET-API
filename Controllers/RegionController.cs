@@ -1,4 +1,5 @@
-﻿using GestaoDeResiduos.Responses;
+﻿using GestaoDeResiduos.Exceptions;
+using GestaoDeResiduos.Responses;
 using GestaoDeResiduos.Services;
 using GestaoDeResiduos.ViewModels;
 using GestaoDeResiduos.ViewModels.Update;
@@ -25,35 +26,49 @@ public class RegionController : Controller
     [HttpGet]
     public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int size = 10)
     {
-        var paginatedStates = await _regionService.GetPaginatedAsync(page, size);
-        return Ok(new BaseApiResponse<PaginatedResponse<RegionViewModelResponse>>("Regiões recuperadas com sucesso.", paginatedStates));
+        var paginatedResult = await _regionService.GetPaginatedAsync(page, size);
+        return Ok(new BaseApiResponse<PaginatedResponse<RegionViewModelResponse>>("Regiões recuperadas com sucesso.", paginatedResult));
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById([FromRoute] int id)
     {
-        var state = await _regionService.GetByIdAsync(id);
-        return Ok(new BaseApiResponse<RegionViewModelResponse>("Região recuperada com sucesso.", state));
+        try
+        {
+            var region = await _regionService.GetByIdAsync(id);
+            return Ok(new BaseApiResponse<RegionViewModelResponse>("Região recuperada com sucesso.", region));
+        }catch (NotFoundException e)
+        {
+            return NotFound(new BaseApiResponse<RegionViewModelResponse>("Região não encontrada.", null));
+        }
+       
     }
 
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] RegionViewModel request)
     {
-        var state = await _regionService.CreateAsync(request);
-        return Ok(new BaseApiResponse<RegionViewModelResponse>("Região registrada com sucesso.", state));
+        var region = await _regionService.CreateAsync(request);
+        return Created($"/api/regions/{region.Id}", new BaseApiResponse<RegionViewModelResponse>("Região registrada com sucesso.", region));
     }
 
     [HttpPut("{id}")]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] RegionViewModelUpdate request)
     {
-        var state = await _regionService.UpdateAsync(id, request);
-        return Ok(new BaseApiResponse<RegionViewModelResponse>("Região atualizada com sucesso.", state));
+        var region = await _regionService.UpdateAsync(id, request);
+        return Ok(new BaseApiResponse<RegionViewModelResponse>("Região atualizada com sucesso.", region));
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
-        await _regionService.DeleteAsync(id);
-        return NoContent();
+        try
+        {
+            await _regionService.DeleteAsync(id);
+            return NoContent();
+        }catch (NotFoundException e)
+        {
+            return NotFound(new BaseApiResponse<RegionViewModelResponse>("Região não encontrada.", null));
+        }
+        
     }
 }

@@ -20,18 +20,8 @@ public class RegionService : CrudService<RegionModel, RegionViewModel, RegionVie
 
     public override async Task<RegionViewModelResponse> CreateAsync(RegionViewModel regionViewModel)
     {
-        try
-        {
-            var state = await _stateRepository.GetByIdAsync(regionViewModel.StateId);
-            if (state == null)
-            {
-                throw new ConflictException("Estado não encontrado.");
-            }
-        }catch (NotFoundException e)
-        {
-            throw new ConflictException("Estado não encontrado.");
-        }
 
+        await CheckIfStateExists(regionViewModel.StateId);
         try
         {
             var region = new RegionModel
@@ -51,23 +41,23 @@ public class RegionService : CrudService<RegionModel, RegionViewModel, RegionVie
     
     public override async Task<RegionViewModelResponse> UpdateAsync(int id, RegionViewModelUpdate viewModelUpdate)
     {
-        var state = await _stateRepository.GetByIdAsync(viewModelUpdate.StateId);
-        if (state == null)
-        {
-            throw new ConflictException("Estado não encontrado.");
-        }
+        await CheckIfStateExists(viewModelUpdate.StateId);
 
-        var region = await _repository.GetByIdAsync(id);
-        if (region == null)
+        try
+        {
+            var region = await _repository.GetByIdAsync(id);
+            region.Name = viewModelUpdate.Name;
+            region.StateId = viewModelUpdate.StateId;
+
+            await _repository.UpdateAsync(region);
+            return MapToViewModelResponse(region);
+        }catch (NotFoundException e)
         {
             throw new NotFoundException("Região não encontrada.");
         }
+        
 
-        region.Name = viewModelUpdate.Name;
-        region.StateId = viewModelUpdate.StateId;
-
-        await _repository.UpdateAsync(region);
-        return MapToViewModelResponse(region);
+       
     }
 
 
@@ -94,5 +84,18 @@ public class RegionService : CrudService<RegionModel, RegionViewModel, RegionVie
     {
         entity.Name = viewModelUpdate.Name;
         entity.StateId = viewModelUpdate.StateId;
+    }
+    
+    private async Task CheckIfStateExists(int stateId)
+    {
+        try
+        {
+            await _stateRepository.GetByIdAsync(stateId);
+
+        }catch (NotFoundException e)
+        {
+            throw new NotFoundException("Estado não encontrado.");
+        }
+
     }
 }

@@ -119,6 +119,33 @@ namespace GestaoDeResiduos.Infra
                         .HasForeignKey(e => e.RegionId)
                         .OnDelete(DeleteBehavior.Restrict);
             });
+            
+            //ruas
+            modelBuilder.Entity<StreetModel>(entity =>
+            {
+                  entity.ToTable("STREETS");
+
+                  entity.HasKey(e => e.Id);
+
+                  entity.Property(e => e.Id)
+                        .HasColumnName("ID")
+                        .HasDefaultValueSql("STREETS_SEQ.NEXTVAL")
+                        .ValueGeneratedOnAdd();
+
+                  entity.Property(e => e.Name)
+                        .IsRequired()
+                        .HasColumnName("NAME");
+
+                  entity.Property(e => e.DistrictId)
+                        .IsRequired()
+                        .HasColumnName("DISTRICT_ID");
+
+                  entity.HasOne(e => e.District)
+                        .WithMany()
+                        .HasForeignKey(e => e.DistrictId)
+                        .OnDelete(DeleteBehavior.Restrict);
+            });
+
 
             base.OnModelCreating(modelBuilder);
         }

@@ -20,11 +20,8 @@ public class DistrictService : CrudService<DistrictModel, DistrictViewModel, Dis
 
     public override async Task<DistrictViewModelResponse> CreateAsync(DistrictViewModel districtViewModel)
     {
-        var region = await _regionrepository.GetByIdAsync(districtViewModel.RegionId);
-        if (region == null)
-        {
-            throw new ConflictException("Região não encontrada.");
-        }
+
+        await CheckIfRegionExists(districtViewModel.RegionId);
         
         var district = new DistrictModel
         {
@@ -38,25 +35,11 @@ public class DistrictService : CrudService<DistrictModel, DistrictViewModel, Dis
     
     public override async Task<DistrictViewModelResponse> UpdateAsync(int id, DistrictViewModelUpdate viewModelUpdate)
     {
-        try
-        {
-            var region = await _regionrepository.GetByIdAsync(viewModelUpdate.RegionId);
-            if (region == null)
-            {
-                throw new ConflictException("Região não encontrada.");
-            }
-        }catch (NotFoundException e)
-        {
-            throw new ConflictException("Região não encontrada.");
-        }
+        await CheckIfRegionExists(viewModelUpdate.RegionId);
 
         try
         {
             var district = await _repository.GetByIdAsync(id);
-            if (district == null)
-            {
-                throw new NotFoundException("Bairro não encontrado.");
-            }
             district.Name = viewModelUpdate.Name;
             district.RegionId = viewModelUpdate.RegionId;
 
@@ -92,5 +75,18 @@ public class DistrictService : CrudService<DistrictModel, DistrictViewModel, Dis
     {
         entity.Name = viewModelUpdate.Name;
         entity.RegionId = viewModelUpdate.RegionId;
+    }
+    
+    private async Task CheckIfRegionExists(int regionId)
+    {
+        try
+        {
+            await _regionrepository.GetByIdAsync(regionId);
+
+        }catch (NotFoundException e)
+        {
+            throw new NotFoundException("Região não encontrada.");
+        }
+
     }
 }

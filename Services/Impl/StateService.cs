@@ -63,7 +63,6 @@ namespace GestaoDeResiduos.Services.Impl
             entity.UF = viewModelUpdate.UF;
         }
         
-        
         public async Task<StateViewModelResponse> GetByUfAsync(string uf)
         {
             if (!BrazilianStates.ValidUFs.Contains(uf))

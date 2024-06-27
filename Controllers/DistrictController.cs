@@ -1,4 +1,5 @@
-﻿using GestaoDeResiduos.Responses;
+﻿using GestaoDeResiduos.Exceptions;
+using GestaoDeResiduos.Responses;
 using GestaoDeResiduos.Services;
 using GestaoDeResiduos.ViewModels;
 using GestaoDeResiduos.ViewModels.Update;
@@ -24,35 +25,49 @@ public class DistrictController : Controller
     [HttpGet]
     public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int size = 10)
     {
-        var paginatedStates = await _districtService.GetPaginatedAsync(page, size);
-        return Ok(new BaseApiResponse<PaginatedResponse<DistrictViewModelResponse>>("Bairros recuperados com sucesso.", paginatedStates));
+        var paginatedResults = await _districtService.GetPaginatedAsync(page, size);
+        return Ok(new BaseApiResponse<PaginatedResponse<DistrictViewModelResponse>>("Bairros recuperados com sucesso.", paginatedResults));
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById([FromRoute] int id)
     {
-        var state = await _districtService.GetByIdAsync(id);
-        return Ok(new BaseApiResponse<DistrictViewModelResponse>("Bairro recuperado com sucesso.", state));
+        try
+        {
+            var district = await _districtService.GetByIdAsync(id);
+            return Ok(new BaseApiResponse<DistrictViewModelResponse>("Bairro recuperado com sucesso.", district));
+        }catch (NotFoundException e)
+        {
+            return NotFound(new BaseApiResponse<DistrictViewModelResponse>("Bairro não encontrado.", null));
+        }
+       
     }
 
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] DistrictViewModel request)
     {
-        var state = await _districtService.CreateAsync(request);
-        return Ok(new BaseApiResponse<DistrictViewModelResponse>("Bairro registrado com sucesso.", state));
+        var district = await _districtService.CreateAsync(request);
+        return Created($"/api/districts/{district.Id}", new BaseApiResponse<DistrictViewModelResponse>("Bairro registrada com sucesso.", district));
     }
 
     [HttpPut("{id}")]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] DistrictViewModelUpdate request)
     {
-        var state = await _districtService.UpdateAsync(id, request);
-        return Ok(new BaseApiResponse<DistrictViewModelResponse>("Bairro atualizado com sucesso.", state));
+        var district = await _districtService.UpdateAsync(id, request);
+        return Ok(new BaseApiResponse<DistrictViewModelResponse>("Bairro atualizado com sucesso.", district));
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
-        await _districtService.DeleteAsync(id);
-        return NoContent();
+        try
+        {
+            await _districtService.DeleteAsync(id);
+            return NoContent();
+        }catch (NotFoundException e)
+        {
+            return NotFound(new BaseApiResponse<DistrictViewModelResponse>("Bairro não encontrado.", null));
+        }
+       
     }
 }

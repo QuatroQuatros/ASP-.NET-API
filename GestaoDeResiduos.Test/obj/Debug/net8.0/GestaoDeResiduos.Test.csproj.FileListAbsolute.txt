@@ -134,3 +134,4 @@ C:\Users\cesgu\Desktop\FIAP\ano2\CSharp\GestaoDeResiduos\GestaoDeResiduos.Test\o
 C:\Users\cesgu\Desktop\FIAP\ano2\CSharp\GestaoDeResiduos\GestaoDeResiduos.Test\obj\Debug\net8.0\ref\GestaoDeResiduos.Test.dll
 C:\Users\cesgu\Desktop\FIAP\ano2\CSharp\GestaoDeResiduos\GestaoDeResiduos.Test\bin\Debug\net8.0\Castle.Core.dll
 C:\Users\cesgu\Desktop\FIAP\ano2\CSharp\GestaoDeResiduos\GestaoDeResiduos.Test\bin\Debug\net8.0\Moq.dll
+C:\Users\cesgu\Desktop\FIAP\ano2\CSharp\GestaoDeResiduos\GestaoDeResiduos.Test\obj\Debug\net8.0\GestaoDeResiduos.Test.sourcelink.json
