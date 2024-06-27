@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34928.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestaoDeResiduos", "GestaoDeResiduos.csproj", "{77DB9C00-5840-48CF-873D-E2FF3E55E699}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestaoDeResiduos.Test", "GestaoDeResiduos.Test\GestaoDeResiduos.Test.csproj", "{30F6D769-291E-417A-8493-132CCE2119E1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{77DB9C00-5840-48CF-873D-E2FF3E55E699}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77DB9C00-5840-48CF-873D-E2FF3E55E699}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77DB9C00-5840-48CF-873D-E2FF3E55E699}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77DB9C00-5840-48CF-873D-E2FF3E55E699}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30F6D769-291E-417A-8493-132CCE2119E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30F6D769-291E-417A-8493-132CCE2119E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30F6D769-291E-417A-8493-132CCE2119E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30F6D769-291E-417A-8493-132CCE2119E1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AC1735F2-8C4C-470D-9A31-55C716B73BEB}
+	EndGlobalSection
+EndGlobal

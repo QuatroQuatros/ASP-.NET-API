@@ -1,0 +1,22 @@
+# This is a generated file. Not intended for manual editing.
+version: "3.8"
+services:
+  asp-api:
+    build:
+      context: "C:\\Users\\cesgu\\Desktop\\FIAP\\ano2\\CSharp\\GestaoDeResiduos"
+      dockerfile: "Dockerfile"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app-1/bin/Debug/net8.0/GestaoDeResiduos.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "gestaoderesiduos:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\cesgu\\AppData\\Roaming\\Microsoft\\UserSecrets:/root/.microsoft/usersecrets"
+    - "C:\\Users\\cesgu\\.nuget\\packages:/root/.nuget/packages"
+    - "C:\\Users\\cesgu\\Desktop\\FIAP\\ano2\\CSharp\\GestaoDeResiduos:/app-1:rw"
+    - "C:\\Users\\cesgu\\Desktop\\FIAP\\ano2\\CSharp\\GestaoDeResiduos:/src:rw"
+    working_dir: "/app-1"

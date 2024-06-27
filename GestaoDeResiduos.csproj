@@ -1,0 +1,80 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>d2f4922a-b6e8-4d1b-9b67-9c98b7bb2396</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>.</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.20.1" />
+    <PackageReference Include="Oracle.EntityFrameworkCore" Version="8.23.40" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="DTO\**" />
+    <Compile Remove="TestProject\**" />
+    <Compile Remove="GestaoDeResiduos.Test\bin\**" />
+    <Compile Remove="GestaoDeResiduos.Test\obj\**" />
+    <Compile Remove="GestaoDeResiduos.Test\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="DTO\**" />
+    <EmbeddedResource Remove="TestProject\**" />
+    <EmbeddedResource Remove="GestaoDeResiduos.Test\bin\**" />
+    <EmbeddedResource Remove="GestaoDeResiduos.Test\obj\**" />
+    <EmbeddedResource Remove="GestaoDeResiduos.Test\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="DTO\**" />
+    <Content Remove="TestProject\**" />
+    <Content Remove="GestaoDeResiduos.Test\bin\**" />
+    <Content Remove="GestaoDeResiduos.Test\obj\**" />
+    <Content Remove="GestaoDeResiduos.Test\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="DTO\**" />
+    <None Remove="TestProject\**" />
+    <None Remove="GestaoDeResiduos.Test\bin\**" />
+    <None Remove="GestaoDeResiduos.Test\obj\**" />
+    <None Remove="GestaoDeResiduos.Test\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="TestProject\obj\project.assets.json" />
+    <_ContentIncludedByDefault Remove="TestProject\obj\project.packagespec.json" />
+    <_ContentIncludedByDefault Remove="TestProject\obj\TestProject.csproj.nuget.dgspec.json" />
+    <_ContentIncludedByDefault Remove="GestaoDeResiduos.Test\obj\GestaoDeResiduos.Test.csproj.nuget.dgspec.json" />
+    <_ContentIncludedByDefault Remove="GestaoDeResiduos.Test\obj\project.assets.json" />
+    <_ContentIncludedByDefault Remove="GestaoDeResiduos.Test\obj\project.packagespec.json" />
+    <_ContentIncludedByDefault Remove="GestaoDeResiduos.Test\bin\Debug\net8.0\appsettings.Development.json" />
+    <_ContentIncludedByDefault Remove="GestaoDeResiduos.Test\bin\Debug\net8.0\appsettings.json" />
+    <_ContentIncludedByDefault Remove="GestaoDeResiduos.Test\bin\Debug\net8.0\GestaoDeResiduos.deps.json" />
+    <_ContentIncludedByDefault Remove="GestaoDeResiduos.Test\bin\Debug\net8.0\GestaoDeResiduos.runtimeconfig.json" />
+    <_ContentIncludedByDefault Remove="GestaoDeResiduos.Test\bin\Debug\net8.0\GestaoDeResiduos.Test.deps.json" />
+    <_ContentIncludedByDefault Remove="GestaoDeResiduos.Test\bin\Debug\net8.0\GestaoDeResiduos.Test.runtimeconfig.json" />
+    <_ContentIncludedByDefault Remove="GestaoDeResiduos.Test\bin\Debug\net8.0\GestaoDeResiduos.Test\obj\GestaoDeResiduos.Test.csproj.nuget.dgspec.json" />
+    <_ContentIncludedByDefault Remove="GestaoDeResiduos.Test\bin\Debug\net8.0\GestaoDeResiduos.Test\obj\project.assets.json" />
+    <_ContentIncludedByDefault Remove="GestaoDeResiduos.Test\bin\Debug\net8.0\GestaoDeResiduos.Test\obj\project.packagespec.json" />
+  </ItemGroup>
+
+</Project>
