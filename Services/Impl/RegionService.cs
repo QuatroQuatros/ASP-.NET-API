@@ -7,7 +7,7 @@ using GestaoDeResiduos.ViewModels.Update;
 
 namespace GestaoDeResiduos.Services.Impl;
 
-public class RegionService: CrudService<RegionModel, RegionViewModel, RegionViewModelResponse, RegionViewModelUpdate>, IRegionService
+public class RegionService : CrudService<RegionModel, RegionViewModel, RegionViewModelResponse, RegionViewModelUpdate>, IRegionService
 {
     private readonly IRegionRepository _repository;
     private readonly IStateRepository _stateRepository;
@@ -20,20 +20,33 @@ public class RegionService: CrudService<RegionModel, RegionViewModel, RegionView
 
     public override async Task<RegionViewModelResponse> CreateAsync(RegionViewModel regionViewModel)
     {
-        var state = await _stateRepository.GetByIdAsync(regionViewModel.StateId);
-        if (state == null)
+        try
+        {
+            var state = await _stateRepository.GetByIdAsync(regionViewModel.StateId);
+            if (state == null)
+            {
+                throw new ConflictException("Estado não encontrado.");
+            }
+        }catch (NotFoundException e)
+        {
+            throw new ConflictException("Estado não encontrado.");
+        }
+
+        try
+        {
+            var region = new RegionModel
+            {
+                Name = regionViewModel.Name,
+                StateId = regionViewModel.StateId
+            };
+        
+            await _repository.CreateAsync(region);
+            return MapToViewModelResponse(region);
+        }catch (ConflictException e)
         {
             throw new ConflictException("Estado não encontrado.");
         }
         
-        var region = new RegionModel
-        {
-            Name = regionViewModel.Name,
-            StateId = regionViewModel.StateId
-        };
-        
-        await _repository.CreateAsync(region);
-        return MapToViewModelResponse(region);
     }
     
     public override async Task<RegionViewModelResponse> UpdateAsync(int id, RegionViewModelUpdate viewModelUpdate)

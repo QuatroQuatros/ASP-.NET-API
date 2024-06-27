@@ -2,7 +2,7 @@
 
 namespace GestaoDeResiduos.Repositories;
 
-public interface IRegionRepository : IRepository<RegionModel>
+public interface IDistrictRepository : IRepository<DistrictModel>
 {
     
 }

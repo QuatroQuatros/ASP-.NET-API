@@ -5,7 +5,7 @@ using GestaoDeResiduos.ViewModels.Update;
 
 namespace GestaoDeResiduos.Services;
 
-public interface IRegionService : ICrudService<RegionModel, RegionViewModel, RegionViewModelResponse, RegionViewModelUpdate>
+public interface IDistrictService : ICrudService<DistrictModel, DistrictViewModel, DistrictViewModelResponse, DistrictViewModelUpdate>
 {
-
+    
 }

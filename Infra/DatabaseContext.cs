@@ -4,8 +4,9 @@ using Microsoft.EntityFrameworkCore;
 namespace GestaoDeResiduos.Infra
 {
     public class DatabaseContext : DbContext
-    {
-
+    { 
+          
+        public virtual DbSet<DistrictModel> Districts { get; set; }
         public virtual DbSet<UserModel> Users { get; set; }
         public virtual DbSet<StateModel> States { get; set; }
         public virtual DbSet<RegionModel> Regions { get; set; }
@@ -89,6 +90,33 @@ namespace GestaoDeResiduos.Infra
                   entity.HasOne(e => e.State)
                         .WithMany()
                         .HasForeignKey(e => e.StateId)
+                        .OnDelete(DeleteBehavior.Restrict);
+            });
+            
+            
+            //bairros
+            modelBuilder.Entity<DistrictModel>(entity =>
+            {
+                  entity.ToTable("DISTRICTS");
+
+                  entity.HasKey(e => e.Id);
+
+                  entity.Property(e => e.Id)
+                        .HasColumnName("ID")
+                        .HasDefaultValueSql("DISTRICTS_SEQ.NEXTVAL")
+                        .ValueGeneratedOnAdd();
+
+                  entity.Property(e => e.Name)
+                        .IsRequired()
+                        .HasColumnName("NAME");
+
+                  entity.Property(e => e.RegionId)
+                        .IsRequired()
+                        .HasColumnName("REGION_ID");
+
+                  entity.HasOne(e => e.Region)
+                        .WithMany()
+                        .HasForeignKey(e => e.RegionId)
                         .OnDelete(DeleteBehavior.Restrict);
             });
 
