@@ -12,6 +12,7 @@ namespace GestaoDeResiduos.Test;
 public class GarbageCollectedControllerTests
 {
     private readonly Mock<IGarbageCollectedService> _mockGarbageCollectedService;
+
     private readonly GarbageCollectedController _controller;
 
     public GarbageCollectedControllerTests()
@@ -37,6 +38,7 @@ public class GarbageCollectedControllerTests
         var result = await _controller.GetAll(new Pagination { Page = 1, Size = 10 });
         
         var okResult = Assert.IsType<OkObjectResult>(result);
+        Assert.Equal(200, okResult.StatusCode);
         var response = Assert.IsType<BaseApiResponse<PaginatedResponse<GarbageCollectedViewModelResponse>>>(okResult.Value);
         Assert.Equal("Busca de lixo coletados realizada com sucesso.", response.Message);
         Assert.Equal(paginatedResponse, response.Data);
@@ -52,6 +54,7 @@ public class GarbageCollectedControllerTests
         var result = await _controller.GetById(1);
         
         var okResult = Assert.IsType<OkObjectResult>(result);
+        Assert.Equal(200, okResult.StatusCode);
         var response = Assert.IsType<BaseApiResponse<GarbageCollectedViewModelResponse>>(okResult.Value);
         Assert.Equal("Busca de lixo coletado realizada com sucesso.", response.Message);
         Assert.Equal(garbageCollectedResponse, response.Data);
@@ -66,6 +69,7 @@ public class GarbageCollectedControllerTests
         var result = await _controller.GetById(1);
         
         var notFoundResult = Assert.IsType<NotFoundObjectResult>(result);
+        Assert.Equal(404, notFoundResult.StatusCode);
         var response = Assert.IsType<BaseApiResponse<GarbageCollectedViewModelResponse>>(notFoundResult.Value);
         Assert.Equal("Lixo coletado não encontrado.", response.Message);
     }
@@ -82,6 +86,7 @@ public class GarbageCollectedControllerTests
         var result = await _controller.Create(garbageCollectedViewModel);
         
         var createdResult = Assert.IsType<CreatedResult>(result);
+        Assert.Equal(201, createdResult.StatusCode);
         var response = Assert.IsType<BaseApiResponse<GarbageCollectedViewModelResponse>>(createdResult.Value);
         Assert.Equal("Lixo coletado registrado com sucesso.", response.Message);
         Assert.Equal(garbageCollectedResponse, response.Data);
@@ -100,6 +105,7 @@ public class GarbageCollectedControllerTests
         var result = await _controller.Update(1, garbageCollectedViewModelUpdate);
         
         var okResult = Assert.IsType<OkObjectResult>(result);
+        Assert.Equal(200, okResult.StatusCode);
         var response = Assert.IsType<BaseApiResponse<GarbageCollectedViewModelResponse>>(okResult.Value);
         Assert.Equal("Lixo coletado atualizado com sucesso.", response.Message);
         Assert.Equal(garbageCollectedResponse, response.Data);
@@ -115,6 +121,7 @@ public class GarbageCollectedControllerTests
         var result = await _controller.Update(1, garbageCollectedViewModelUpdate);
         
         var notFoundResult = Assert.IsType<NotFoundObjectResult>(result);
+        Assert.Equal(404, notFoundResult.StatusCode);
         var response = Assert.IsType<BaseApiResponse<GarbageCollectedViewModelResponse>>(notFoundResult.Value);
         Assert.Equal("Lixo coletado não encontrado.", response.Message);
     }
@@ -127,7 +134,8 @@ public class GarbageCollectedControllerTests
         
         var result = await _controller.Delete(1);
         
-        Assert.IsType<NoContentResult>(result);
+        var noContentResult = Assert.IsType<NoContentResult>(result);
+        Assert.Equal(204, noContentResult.StatusCode);
     }
 
     [Fact]
@@ -139,6 +147,7 @@ public class GarbageCollectedControllerTests
         var result = await _controller.Delete(1);
         
         var notFoundResult = Assert.IsType<NotFoundObjectResult>(result);
+        Assert.Equal(404, notFoundResult.StatusCode);
         var response = Assert.IsType<BaseApiResponse<GarbageCollectedViewModelResponse>>(notFoundResult.Value);
         Assert.Equal("Lixo coletado não encontrado.", response.Message);
     }
@@ -153,6 +162,7 @@ public class GarbageCollectedControllerTests
         var result = await _controller.GetStateMoreTrashAsync(null, null);
         
         var okResult = Assert.IsType<OkObjectResult>(result);
+        Assert.Equal(200, okResult.StatusCode);
         var response = Assert.IsType<BaseApiResponse<TrashResultState>>(okResult.Value);
         Assert.Equal("Estado com mais lixo recuperado com sucesso.", response.Message);
         Assert.Equal(trashResultState, response.Data);
@@ -168,6 +178,7 @@ public class GarbageCollectedControllerTests
         var result = await _controller.GetRegionMoreTrashAsync(null, null);
         
         var okResult = Assert.IsType<OkObjectResult>(result);
+        Assert.Equal(200, okResult.StatusCode);
         var response = Assert.IsType<BaseApiResponse<TrashResultRegion>>(okResult.Value);
         Assert.Equal("Região com mais lixo recuperado com sucesso.", response.Message);
         Assert.Equal(trashResultRegion, response.Data);
@@ -183,6 +194,7 @@ public class GarbageCollectedControllerTests
         var result = await _controller.GetNeighborhoodMoreTrashAsync(1, 1);
         
         var okResult = Assert.IsType<OkObjectResult>(result);
+        Assert.Equal(200, okResult.StatusCode);
         var response = Assert.IsType<BaseApiResponse<TrashResultNeighborhood>>(okResult.Value);
         Assert.Equal("Bairro com mais lixo recuperado com sucesso.", response.Message);
         Assert.Equal(trashResultNeighborhood, response.Data);
