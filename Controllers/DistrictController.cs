@@ -57,8 +57,15 @@ public class DistrictController : Controller
     [HttpPut("{id}")]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] DistrictViewModelUpdate request)
     {
-        var district = await _districtService.UpdateAsync(id, request);
-        return Ok(new BaseApiResponse<DistrictViewModelResponse>("Bairro atualizado com sucesso.", district));
+        try
+        {
+            var district = await _districtService.UpdateAsync(id, request);
+            return Ok(new BaseApiResponse<DistrictViewModelResponse>("Bairro atualizado com sucesso.", district));
+        }catch (NotFoundException e)
+        {
+            return NotFound(new BaseApiResponse<DistrictViewModelResponse>("Bairro não encontrado.", null));
+        }
+        
     }
 
     [HttpDelete("{id}")]
