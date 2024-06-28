@@ -36,6 +36,7 @@ namespace GestaoDeResiduos.Test;
         var result = await _controller.GetAll(new Pagination { Page = 1, Size = 10 });
         
         var okResult = Assert.IsType<OkObjectResult>(result);
+        Assert.Equal(200, okResult.StatusCode);
         var response = Assert.IsType<BaseApiResponse<PaginatedResponse<StateViewModelResponse>>>(okResult.Value);
         Assert.Equal("Estados recuperados com sucesso.", response.Message);
         Assert.Equal(paginatedResponse, response.Data);
@@ -51,6 +52,7 @@ namespace GestaoDeResiduos.Test;
         var result = await _controller.GetById(1);
 
         var okResult = Assert.IsType<OkObjectResult>(result);
+        Assert.Equal(200, okResult.StatusCode);
         var response = Assert.IsType<BaseApiResponse<StateViewModelResponse>>(okResult.Value);
         Assert.Equal("Estado recuperado com sucesso.", response.Message);
         Assert.Equal(stateResponse, response.Data);
@@ -65,6 +67,7 @@ namespace GestaoDeResiduos.Test;
         var result = await _controller.GetById(1);
         
         var notFoundResult = Assert.IsType<NotFoundObjectResult>(result);
+        Assert.Equal(404, notFoundResult.StatusCode);
         var response = Assert.IsType<BaseApiResponse<StateViewModelResponse>>(notFoundResult.Value);
         Assert.Equal("Estado não encontrado.", response.Message);
     }
@@ -79,6 +82,7 @@ namespace GestaoDeResiduos.Test;
         var result = await _controller.GetByUf("ST");
 
         var okResult = Assert.IsType<OkObjectResult>(result);
+        Assert.Equal(200, okResult.StatusCode);
         var response = Assert.IsType<BaseApiResponse<StateViewModelResponse>>(okResult.Value);
         Assert.Equal("Estado recuperado com sucesso.", response.Message);
         Assert.Equal(stateResponse, response.Data);
@@ -93,6 +97,7 @@ namespace GestaoDeResiduos.Test;
         var result = await _controller.GetByUf("ST");
 
         var notFoundResult = Assert.IsType<NotFoundObjectResult>(result);
+        Assert.Equal(404, notFoundResult.StatusCode);
         var response = Assert.IsType<BaseApiResponse<StateViewModelResponse>>(notFoundResult.Value);
         Assert.Equal("Estado não encontrado.", response.Message);
     }
@@ -108,6 +113,7 @@ namespace GestaoDeResiduos.Test;
         var result = await _controller.Create(stateViewModel);
         
         var createdResult = Assert.IsType<CreatedResult>(result);
+        Assert.Equal(201, createdResult.StatusCode);
         var response = Assert.IsType<BaseApiResponse<StateViewModelResponse>>(createdResult.Value);
         Assert.Equal("Estado registrado com sucesso.", response.Message);
         Assert.Equal(stateResponse, response.Data);
@@ -124,6 +130,7 @@ namespace GestaoDeResiduos.Test;
         var result = await _controller.Update(1, stateViewModelUpdate);
         
         var okResult = Assert.IsType<OkObjectResult>(result);
+        Assert.Equal(200, okResult.StatusCode);
         var response = Assert.IsType<BaseApiResponse<StateViewModelResponse>>(okResult.Value);
         Assert.Equal("Estado atualizado com sucesso.", response.Message);
         Assert.Equal(stateResponse, response.Data);
@@ -139,6 +146,7 @@ namespace GestaoDeResiduos.Test;
         var result = await _controller.Update(1, stateViewModelUpdate);
 
         var notFoundResult = Assert.IsType<NotFoundObjectResult>(result);
+        Assert.Equal(404, notFoundResult.StatusCode);
         var response = Assert.IsType<BaseApiResponse<StateViewModelResponse>>(notFoundResult.Value);
         Assert.Equal("Estado não encontrado.", response.Message);
     }
@@ -151,7 +159,8 @@ namespace GestaoDeResiduos.Test;
         
         var result = await _controller.Delete(1);
 
-        Assert.IsType<NoContentResult>(result);
+        var noContentResult = Assert.IsType<NoContentResult>(result);
+        Assert.Equal(204, noContentResult.StatusCode);
     }
 
     [Fact]
@@ -163,7 +172,9 @@ namespace GestaoDeResiduos.Test;
         var result = await _controller.Delete(1);
 
         var notFoundResult = Assert.IsType<NotFoundObjectResult>(result);
+        Assert.Equal(404, notFoundResult.StatusCode);
         var response = Assert.IsType<BaseApiResponse<StateViewModelResponse>>(notFoundResult.Value);
         Assert.Equal("Estado não encontrado.", response.Message);
     }
+    
 }
