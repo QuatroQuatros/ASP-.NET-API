@@ -21,7 +21,6 @@ private readonly IGarbageCollectedService _garbageCollectedService;
         _garbageCollectedService = garbageCollectedService;
     }
     
-    
     [HttpGet]
     public async Task<IActionResult> GetAll([FromQuery] Pagination pagination)
     {
