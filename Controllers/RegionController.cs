@@ -58,8 +58,15 @@ public class RegionController : Controller
     [HttpPut("{id}")]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] RegionViewModelUpdate request)
     {
-        var region = await _regionService.UpdateAsync(id, request);
-        return Ok(new BaseApiResponse<RegionViewModelResponse>("Região atualizada com sucesso.", region));
+        try
+        {
+            var region = await _regionService.UpdateAsync(id, request);
+            return Ok(new BaseApiResponse<RegionViewModelResponse>("Região atualizada com sucesso.", region));
+        }catch (NotFoundException e)
+        {
+            return NotFound(new BaseApiResponse<RegionViewModelResponse>("Região não encontrada.", null));
+        }
+        
     }
 
     [HttpDelete("{id}")]
