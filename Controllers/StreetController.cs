@@ -57,8 +57,15 @@ public class StreetController : Controller
     [HttpPut("{id}")]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] StreetViewModelUpdate request)
     {
-        var street = await _streetService.UpdateAsync(id, request);
-        return Ok(new BaseApiResponse<StreetViewModelResponse>("Rua atualizada com sucesso.", street));
+        try
+        {
+            var street = await _streetService.UpdateAsync(id, request);
+            return Ok(new BaseApiResponse<StreetViewModelResponse>("Rua atualizada com sucesso.", street));
+        }catch (NotFoundException e)
+        {
+            return NotFound(new BaseApiResponse<StreetViewModelResponse>("Rua não encontrada.", null));
+        }
+       
     }
 
     [HttpDelete("{id}")]
