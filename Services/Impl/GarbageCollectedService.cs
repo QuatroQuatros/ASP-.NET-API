@@ -1,6 +1,7 @@
 ﻿using GestaoDeResiduos.Exceptions;
 using GestaoDeResiduos.Models;
 using GestaoDeResiduos.Repositories;
+using GestaoDeResiduos.Repositories.Impl;
 using GestaoDeResiduos.Responses;
 using GestaoDeResiduos.ViewModels;
 using GestaoDeResiduos.ViewModels.Update;
@@ -53,8 +54,22 @@ public class GarbageCollectedService : CrudService<GarbageCollectedModel, Garbag
         {
             entity.Amount = viewModelUpdate.Amount;
         }
-    
-    
+        
+        public async Task<TrashResultState> GetStateMoreTrashAsync(int? stateId = null, int? collectionTypeId = null)
+        {
+            return await _garbageCollectedRepository.GetStateMoreTrashAsync(stateId, collectionTypeId);
+        }
+        
+        public async Task<TrashResultRegion> GetRegionMoreTrashAsync(int? regionId = null, int? collectionTypeId = null)
+        {
+            return await _garbageCollectedRepository.GetRegionMoreTrashAsync(regionId, collectionTypeId);
+        }
+        
+        public async Task<TrashResultNeighborhood> GetNeighborhoodMoreTrashAsync(int? districtId = null, int? collectionTypeId = null)
+        {
+            return await _garbageCollectedRepository.GetNeighborhoodMoreTrashAsync(districtId, collectionTypeId);
+        }
+        
         private async Task CheckIfCollectionDayExists(int collectionDayId)
         {
             try
@@ -67,5 +82,7 @@ public class GarbageCollectedService : CrudService<GarbageCollectedModel, Garbag
             }
 
         }
+        
+        
         
 }

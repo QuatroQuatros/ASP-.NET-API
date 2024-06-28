@@ -1,4 +1,5 @@
-﻿using GestaoDeResiduos.Exceptions;
+﻿using System.ComponentModel.DataAnnotations;
+using GestaoDeResiduos.Exceptions;
 using GestaoDeResiduos.Models;
 using GestaoDeResiduos.Repositories;
 using GestaoDeResiduos.Responses;
@@ -26,11 +27,26 @@ public class CollectionDayService : CrudService<CollectionDayModel, CollectionDa
         await CheckIfStreetExists(viewModel.StreetId);
         await CheckIfCollectionTypeExists(viewModel.GarbageCollectionTypeId);
 
+        DateTime scheduleDate;
+
+        if (viewModel.ScheduleDate.HasValue)
+        {
+            if (viewModel.ScheduleDate.Value <= DateTime.Now)
+            {
+                throw new ValidationException("A data de agendamento deve ser maior que a data atual.");
+            }
+            scheduleDate = viewModel.ScheduleDate.Value;
+        }
+        else
+        {
+            scheduleDate = DateTime.Now;
+        }
+
         var collectionDay = new CollectionDayModel
         {
             StreetId = viewModel.StreetId,
             GarbageCollectionTypeId = viewModel.GarbageCollectionTypeId,
-            ScheduleDate = viewModel.ScheduleDate ?? DateTime.Now,
+            ScheduleDate = scheduleDate,
             Status = viewModel.Status.HasValue ? (CollectionStatus)viewModel.Status.Value : CollectionStatus.Agendado
         };
 
@@ -129,6 +145,61 @@ public class CollectionDayService : CrudService<CollectionDayModel, CollectionDa
         }catch (NotFoundException e)
         {
             throw new NotFoundException("Tipo de coleta não encontrado.");
+        }
+    }
+    
+    public async Task<CollectionDayViewModelResponse> MarkAsCompleteAsync(int id)
+    {
+        var collectionDay = await GetCollectionDay(id);
+        
+        if (collectionDay.Status != CollectionStatus.EmAndamento && collectionDay.Status != CollectionStatus.Agendado)
+        {
+            throw new InvalidOperationException("Só é possível concluir agendamentos que estão em andamento ou agendados.");
+        }
+
+        collectionDay.Status = CollectionStatus.Coletado;
+        await _repository.UpdateAsync(collectionDay);
+        return MapToViewModelResponse(collectionDay);
+    }
+    
+    public async Task<CollectionDayViewModelResponse> MarkAsCanceledAsync(int id)
+    {
+        var collectionDay = await GetCollectionDay(id);
+        
+        if (collectionDay.Status != CollectionStatus.Agendado && collectionDay.Status != CollectionStatus.EmAndamento)
+        {
+            throw new InvalidOperationException("Só é possível cancelar agendamentos que estão em andamento ou agendados.");
+        }
+
+        collectionDay.Status = CollectionStatus.Cancelado;
+        await _repository.UpdateAsync(collectionDay);
+        return MapToViewModelResponse(collectionDay);
+    }
+    
+    public async Task<CollectionDayViewModelResponse> MarkAsInProgressAsync(int id)
+    {
+        var collectionDay = await GetCollectionDay(id);
+        
+        if (collectionDay.Status != CollectionStatus.Agendado)
+        {
+            throw new InvalidOperationException("Só é possível iniciar agendamentos que estão agendados.");
+        }
+
+        collectionDay.Status = CollectionStatus.EmAndamento;
+        await _repository.UpdateAsync(collectionDay);
+        return MapToViewModelResponse(collectionDay);
+    }
+    
+    private async Task<CollectionDayModel> GetCollectionDay(int collectionDayId)
+    {
+        try
+        {
+            var collectionDay =  await _repository.GetByIdAsync(collectionDayId);
+            return collectionDay;
+
+        }catch (NotFoundException e)
+        {
+            throw new NotFoundException("Agendamento não encontrado.");
         }
     }
 }

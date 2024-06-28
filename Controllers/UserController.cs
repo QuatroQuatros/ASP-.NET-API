@@ -22,16 +22,7 @@ public class UserController : ControllerBase
         _userService = userService;
     }
 
-    [AllowAnonymous]
-    [HttpGet("teste")]
-    public ActionResult<String> Teste()
-    {
-        return Ok(new
-        {
-            message = "Batata"
-        });
-        
-    }
+    //[AllowAnonymous]
     
     [HttpGet]
     public async Task<IActionResult> GetAll([FromQuery] Pagination pagination)

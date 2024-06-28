@@ -1,4 +1,5 @@
 ﻿using GestaoDeResiduos.Exceptions;
+using GestaoDeResiduos.Repositories.Impl;
 using GestaoDeResiduos.Responses;
 using GestaoDeResiduos.Services;
 using GestaoDeResiduos.ViewModels;
@@ -79,5 +80,26 @@ private readonly IGarbageCollectedService _garbageCollectedService;
             return NotFound(new BaseApiResponse<GarbageCollectedViewModelResponse>("Lixo coletado não encontrado.", null));
         }
        
+    }
+    
+    [HttpGet("state-more-trash")]
+    public async Task<IActionResult> GetStateMoreTrashAsync([FromQuery] int? state, [FromQuery] int? collectionTypeId)
+    {
+        var result = await _garbageCollectedService.GetStateMoreTrashAsync(state, collectionTypeId);
+        return Ok(new BaseApiResponse<TrashResultState>("Estado com mais lixo recuperado com sucesso.", result));
+    }
+    
+    [HttpGet("region-more-trash")]
+    public async Task<IActionResult> GetRegionMoreTrashAsync([FromQuery] int? region, [FromQuery] int? collectionTypeId)
+    {
+        var result = await _garbageCollectedService.GetRegionMoreTrashAsync(region, collectionTypeId);
+        return Ok(new BaseApiResponse<TrashResultRegion>("Região com mais lixo recuperado com sucesso.", result));
+    }
+    
+    [HttpGet("neighborhood-more-trash")]
+    public async Task<IActionResult> GetNeighborhoodMoreTrashAsync([FromQuery] int? district, [FromQuery] int? collectionTypeId)
+    {
+        var result = await _garbageCollectedService.GetNeighborhoodMoreTrashAsync(district, collectionTypeId);
+        return Ok(new BaseApiResponse<TrashResultNeighborhood>("Bairro com mais lixo recuperado com sucesso.", result));
     }
 }

@@ -11,6 +11,7 @@ namespace GestaoDeResiduos.Infra
         public virtual DbSet<StateModel> States { get; set; }
         public virtual DbSet<RegionModel> Regions { get; set; }
         public virtual DbSet<CollectionDayModel> CollectionDays { get; set; }
+        public virtual DbSet<GarbageCollectedModel> GarbageCollected { get; set; }
         public virtual DbSet<GarbageCollectionTypeModel> GarbageCollectionTypes { get; set; }
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {

@@ -83,4 +83,28 @@ public class CollectionDayController : Controller
         }
         
     }
+    
+    [HttpPut("{id}/finish")]
+    public async Task<IActionResult> MarkAsComplete([FromRoute] int id)
+    {
+        var response = await _collectionDayService.MarkAsCompleteAsync(id);
+        return Ok(new BaseApiResponse<CollectionDayViewModelResponse>("Coleta finalizada com sucesso.", response));
+         
+    }
+    
+    [HttpPut("{id}/cancel")]
+    public async Task<IActionResult> MarkAsCanceledAsync([FromRoute] int id)
+    {
+        var response = await _collectionDayService.MarkAsCanceledAsync(id);
+        return Ok(new BaseApiResponse<CollectionDayViewModelResponse>("Coleta cancelada com sucesso.", response));
+         
+    }
+    
+    [HttpPut("{id}/start")]
+    public async Task<IActionResult> MarkAsInProgressAsync([FromRoute] int id)
+    {
+        var response = await _collectionDayService.MarkAsInProgressAsync(id);
+        return Ok(new BaseApiResponse<CollectionDayViewModelResponse>("Coleta iniciada com sucesso.", response));
+         
+    }
 }
