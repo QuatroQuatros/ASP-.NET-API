@@ -95,7 +95,7 @@ public class GarbageCollectedRepository : Repository<GarbageCollectedModel>, IGa
             {
                 await _regionRepository.GetByIdAsync(regionId ?? regionId.Value);
 
-            }catch (NotFoundException e)
+            }catch (NotFoundException _)
             {
                 throw new NotFoundException("Região não encontrada.");
             }
