@@ -17,5 +17,5 @@ public class GarbageCollectedModel
     [Column("AMOUNT")]
     public float Amount { get; set; }
 
-    public required CollectionDayModel CollectionDay { get; set; }
+    public CollectionDayModel? CollectionDay { get; set; }
 }
