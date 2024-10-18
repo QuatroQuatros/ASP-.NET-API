@@ -15,7 +15,7 @@ public class DistrictModel
     public int RegionId { get; set; }
     
     [Column("NAME")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
-    public RegionModel Region { get; set; }
+    public RegionModel? Region { get; set; }
 }

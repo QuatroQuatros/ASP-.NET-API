@@ -15,6 +15,6 @@ public class StateModel
     public string Name { get; set; }
     
     [Column("UF")]
-    public string UF { get; set; }
+    public string? UF { get; set; }
     
 }

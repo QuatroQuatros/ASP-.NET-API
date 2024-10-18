@@ -15,7 +15,7 @@ public class StreetModel
     public int DistrictId { get; set; }
     
     [Column("NAME")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
-    public DistrictModel District { get; set; }
+    public DistrictModel? District { get; set; }
 }

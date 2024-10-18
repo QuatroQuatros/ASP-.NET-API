@@ -30,9 +30,9 @@ public class CollectionDayModel
     [Column("STATUS")]
     public CollectionStatus?  Status { get; set; }
     
-    public StreetModel Street { get; set; }
+    public StreetModel? Street { get; set; }
     
-    public GarbageCollectionTypeModel GarbageCollectionType{ get; set; }
+    public GarbageCollectionTypeModel? GarbageCollectionType{ get; set; }
 }
 
 

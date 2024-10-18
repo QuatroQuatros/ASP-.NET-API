@@ -13,17 +13,17 @@ public class UserModel
     public int Id { get; set; }
 
     [Column("NAME")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     [Column("EMAIL")]
-    public string Email { get; set; }
+    public string? Email { get; set; }
 
     [Column("PASSWORD")]
-    public string Password { get; set; }
+    public string? Password { get; set; }
 
     [Column("BIRTH_DATE")]
     public DateTime BirthDate { get; set; }
 
     [Column("ROLE")]
-    public string Role { get; set; }
+    public string? Role { get; set; }
 }
