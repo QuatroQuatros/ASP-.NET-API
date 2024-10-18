@@ -8,7 +8,7 @@ namespace GestaoDeResiduos.Repositories
     {
         Task<PaginatedResponse<UserViewModelResponse>> GetUsersPaginatedAsync(int pageNumber, int pageSize);
         Task<UserModel> GetUserByIdAsync(int id);
-        Task<UserModel> GetUserByEmailAsync(string email);
+        Task<UserModel> GetUserByEmailAsync(string? email);
         Task<UserModel> AddUserAsync(UserModel user);
         
         Task<UserModel> UpdateUserAsync(UserModel user);
