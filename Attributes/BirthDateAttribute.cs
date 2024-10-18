@@ -10,7 +10,7 @@ namespace GestaoDeResiduos.Attributes
             ErrorMessage = "A Data de Nascimento não pode ser no futuro.";
         }
 
-        public override bool IsValid(object value)
+        public override bool IsValid(object? value)
         {
             if (value is DateTime birthDate)
             {
