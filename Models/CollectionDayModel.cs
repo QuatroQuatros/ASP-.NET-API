@@ -25,14 +25,14 @@ public class CollectionDayModel
     public DateTime ScheduleDate { get; set; }
 
     [Column("COLLECTION_DATE")]
-    public required DateTime CollectionDate { get; set; }
+    public DateTime CollectionDate { get; set; }
 
     [Column("STATUS")]
-    public required CollectionStatus  Status { get; set; }
+    public CollectionStatus? Status { get; set; }
     
-    public required StreetModel Street { get; set; }
+    public StreetModel Street { get; set; }
     
-    public required GarbageCollectionTypeModel GarbageCollectionType{ get; set; }
+    public GarbageCollectionTypeModel GarbageCollectionType{ get; set; }
 }
 
 

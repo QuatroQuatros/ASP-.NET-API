@@ -47,7 +47,7 @@ public class CollectionDayService : CrudService<CollectionDayModel, CollectionDa
             StreetId = viewModel.StreetId,
             GarbageCollectionTypeId = viewModel.GarbageCollectionTypeId,
             ScheduleDate = scheduleDate,
-            Status = viewModel.Status.HasValue ? (CollectionStatus)viewModel.Status.Value : CollectionStatus.Agendado
+            Status = viewModel.Status.HasValue ? viewModel.Status.Value : CollectionStatus.Agendado
         };
 
         await _repository.CreateAsync(collectionDay);
@@ -80,7 +80,7 @@ public class CollectionDayService : CrudService<CollectionDayModel, CollectionDa
 
             await _repository.UpdateAsync(collectionDay);
             return MapToViewModelResponse(collectionDay);
-        }catch (NotFoundException e)
+        }catch (NotFoundException)
         {
             throw new NotFoundException("Agendamento não encontrado.");
         }
@@ -96,7 +96,7 @@ public class CollectionDayService : CrudService<CollectionDayModel, CollectionDa
             GarbageCollectionTypeId = viewModel.GarbageCollectionTypeId,
             ScheduleDate = viewModel.ScheduleDate ?? DateTime.Now,
             CollectionDate = viewModel.CollectionDate,
-            Status = viewModel.Status.HasValue ? (CollectionStatus)viewModel.Status.Value : CollectionStatus.Agendado
+            Status = viewModel.Status.HasValue ? viewModel.Status.Value : CollectionStatus.Agendado
         };
     }
 
@@ -110,8 +110,8 @@ public class CollectionDayService : CrudService<CollectionDayModel, CollectionDa
             ScheduleDate = entity.ScheduleDate,
             CollectionDate = entity.CollectionDate,
             Status = entity.Status.ToString(),
-            StreetName = entity.Street?.Name ?? string.Empty,
-            GarbageCollectionTypeName = entity.GarbageCollectionType?.Name ?? string.Empty
+            StreetName = entity.Street.Name ?? string.Empty,
+            GarbageCollectionTypeName = entity.GarbageCollectionType.Name ?? string.Empty
         };
     }
 
@@ -130,7 +130,7 @@ public class CollectionDayService : CrudService<CollectionDayModel, CollectionDa
         {
             await _streetRepository.GetByIdAsync(streetId);
 
-        }catch (NotFoundException e)
+        }catch (NotFoundException)
         {
             throw new NotFoundException("Rua não encontrada.");
         }
@@ -142,7 +142,7 @@ public class CollectionDayService : CrudService<CollectionDayModel, CollectionDa
         {
             await _garbageCollectionTypeRepository.GetByIdAsync(collectionTypeId);
 
-        }catch (NotFoundException e)
+        }catch (NotFoundException)
         {
             throw new NotFoundException("Tipo de coleta não encontrado.");
         }
@@ -197,7 +197,7 @@ public class CollectionDayService : CrudService<CollectionDayModel, CollectionDa
             var collectionDay =  await _repository.GetByIdAsync(collectionDayId);
             return collectionDay;
 
-        }catch (NotFoundException e)
+        }catch (NotFoundException)
         {
             throw new NotFoundException("Agendamento não encontrado.");
         }

@@ -147,7 +147,7 @@ public class GarbageCollectedRepository : Repository<GarbageCollectedModel>, IGa
             {
                 await _districtRepository.GetByIdAsync(districtId ?? districtId.Value);
 
-            }catch (NotFoundException e)
+            }catch (NotFoundException _)
             {
                 throw new NotFoundException("Bairro não encontrado.");
             }
@@ -189,7 +189,7 @@ public class GarbageCollectedRepository : Repository<GarbageCollectedModel>, IGa
         {
             await _garbageCollectionTypeRepository.GetByIdAsync(collectionTypeId);
 
-        }catch (NotFoundException e)
+        }catch (NotFoundException _)
         {
             throw new NotFoundException("Tipo de coleta não encontrado.");
         }

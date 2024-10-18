@@ -12,7 +12,7 @@ public class CollectionDayViewModel
     
     public DateTime? ScheduleDate { get; set; }
     
-    public DateTime? CollectionDate { get; set; }
+    public DateTime CollectionDate { get; set; }
     
     public CollectionStatus? Status { get; set; }
 }
