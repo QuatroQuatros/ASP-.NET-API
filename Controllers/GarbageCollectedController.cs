@@ -1,8 +1,8 @@
 ﻿using GestaoDeResiduos.Exceptions;
 using GestaoDeResiduos.Repositories.Impl;
-using GestaoDeResiduos.Responses;
 using GestaoDeResiduos.Services;
 using GestaoDeResiduos.ViewModels;
+using GestaoDeResiduos.ViewModels.Responses;
 using GestaoDeResiduos.ViewModels.Update;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

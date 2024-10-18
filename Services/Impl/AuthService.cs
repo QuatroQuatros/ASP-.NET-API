@@ -2,13 +2,11 @@
 using GestaoDeResiduos.Models;
 using GestaoDeResiduos.Repositories;
 using GestaoDeResiduos.ViewModels;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using GestaoDeResiduos.Responses;
+using GestaoDeResiduos.ViewModels.Responses;
 
 namespace GestaoDeResiduos.Services.Impl
 {
@@ -54,6 +52,10 @@ namespace GestaoDeResiduos.Services.Impl
                 throw new Exception("Senha inválida");
             }
 
+            if (string.IsNullOrEmpty(user.Email))
+            {
+                throw new ArgumentNullException(nameof(user.Email), "Email do usuário não pode ser nulo.");
+            }
             var token = this.GenerateToken(user.Email);
             var userResponse = new UserViewModelResponse
             {
@@ -70,7 +72,7 @@ namespace GestaoDeResiduos.Services.Impl
         public string GenerateToken(string username)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var secret = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
+            var secret = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]!);
             var securityKey = new SymmetricSecurityKey(secret);
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 

@@ -1,8 +1,8 @@
 ﻿using GestaoDeResiduos.Exceptions;
 using GestaoDeResiduos.Models;
 using GestaoDeResiduos.Repositories;
-using GestaoDeResiduos.Responses;
 using GestaoDeResiduos.ViewModels;
+using GestaoDeResiduos.ViewModels.Responses;
 using GestaoDeResiduos.ViewModels.Update;
 
 namespace GestaoDeResiduos.Services.Impl;
@@ -32,7 +32,7 @@ public class RegionService : CrudService<RegionModel, RegionViewModel, RegionVie
         
             await _repository.CreateAsync(region);
             return MapToViewModelResponse(region);
-        }catch (ConflictException e)
+        }catch (ConflictException)
         {
             throw new ConflictException("Estado não encontrado.");
         }
@@ -51,7 +51,7 @@ public class RegionService : CrudService<RegionModel, RegionViewModel, RegionVie
 
             await _repository.UpdateAsync(region);
             return MapToViewModelResponse(region);
-        }catch (NotFoundException e)
+        }catch (NotFoundException)
         {
             throw new NotFoundException("Região não encontrada.");
         }
@@ -92,7 +92,7 @@ public class RegionService : CrudService<RegionModel, RegionViewModel, RegionVie
         {
             await _stateRepository.GetByIdAsync(stateId);
 
-        }catch (NotFoundException e)
+        }catch (NotFoundException)
         {
             throw new NotFoundException("Estado não encontrado.");
         }

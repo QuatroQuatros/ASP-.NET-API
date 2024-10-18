@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using GestaoDeResiduos.Controllers;
-using GestaoDeResiduos.Responses;
 using GestaoDeResiduos.Services;
 using GestaoDeResiduos.ViewModels;
+using GestaoDeResiduos.ViewModels.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 

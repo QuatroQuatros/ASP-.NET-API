@@ -1,11 +1,10 @@
-﻿using System.Threading.Tasks;
-using GestaoDeResiduos.Exceptions;
+﻿using GestaoDeResiduos.Exceptions;
 using GestaoDeResiduos.Models;
 using GestaoDeResiduos.Repositories;
-using GestaoDeResiduos.Responses;
 using GestaoDeResiduos.ViewModels;
+using GestaoDeResiduos.ViewModels.Responses;
 using GestaoDeResiduos.ViewModels.Update;
-using Microsoft.EntityFrameworkCore;
+
 
 namespace GestaoDeResiduos.Services.Impl
 {
@@ -21,7 +20,7 @@ namespace GestaoDeResiduos.Services.Impl
 
         public override async Task<StateViewModelResponse> CreateAsync(StateViewModel viewModel)
         {
-            if (!BrazilianStates.ValidUFs.Contains(viewModel.UF))
+            if (string.IsNullOrEmpty(viewModel.UF) || !BrazilianStates.ValidUFs.Contains(viewModel.UF))
             {
                 throw new ConflictException("UF inválida.");
             }
@@ -40,6 +39,11 @@ namespace GestaoDeResiduos.Services.Impl
 
         protected override StateModel MapToEntity(StateViewModel viewModel)
         {
+            if (string.IsNullOrEmpty(viewModel.Name))
+            {
+                throw new ArgumentNullException(nameof(viewModel.Name), "O nome do estado não pode ser nulo ou vazio.");
+            }
+            
             return new StateModel
             {
                 Name = viewModel.Name,
@@ -59,6 +63,10 @@ namespace GestaoDeResiduos.Services.Impl
 
         protected override void UpdateEntity(StateModel entity, StateViewModelUpdate viewModelUpdate)
         {
+            if (string.IsNullOrEmpty(viewModelUpdate.Name))
+            {
+                throw new ArgumentNullException(nameof(viewModelUpdate.Name), "O nome do estado não pode ser nulo ou vazio.");
+            }
             entity.Name = viewModelUpdate.Name;
             entity.UF = viewModelUpdate.UF;
         }

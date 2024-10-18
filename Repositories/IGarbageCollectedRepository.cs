@@ -1,6 +1,6 @@
 ﻿using GestaoDeResiduos.Models;
 using GestaoDeResiduos.Repositories.Impl;
-using GestaoDeResiduos.Responses;
+using GestaoDeResiduos.ViewModels.Responses;
 
 namespace GestaoDeResiduos.Repositories;
 

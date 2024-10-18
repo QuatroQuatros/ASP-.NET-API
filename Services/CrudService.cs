@@ -1,8 +1,6 @@
-﻿using System.Threading.Tasks;
-using GestaoDeResiduos.Repositories;
-using GestaoDeResiduos.Responses;
-using GestaoDeResiduos.ViewModels;
-using GestaoDeResiduos.ViewModels.Update;
+﻿using GestaoDeResiduos.Repositories;
+using GestaoDeResiduos.ViewModels.Responses;
+
 
 namespace GestaoDeResiduos.Services
 {

@@ -1,8 +1,7 @@
-﻿using GestaoDeResiduos.Exceptions;
-using GestaoDeResiduos.Models;
+﻿using GestaoDeResiduos.Models;
 using GestaoDeResiduos.Repositories;
-using GestaoDeResiduos.Responses;
 using GestaoDeResiduos.ViewModels;
+using GestaoDeResiduos.ViewModels.Responses;
 using GestaoDeResiduos.ViewModels.Update;
 
 namespace GestaoDeResiduos.Services.Impl;

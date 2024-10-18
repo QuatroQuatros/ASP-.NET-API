@@ -2,7 +2,7 @@
 using GestaoDeResiduos.Exceptions;
 using GestaoDeResiduos.Infra;
 using GestaoDeResiduos.Models;
-using GestaoDeResiduos.Responses;
+using GestaoDeResiduos.ViewModels.Responses;
 using Microsoft.EntityFrameworkCore;
 using Oracle.ManagedDataAccess.Client;
 using Oracle.ManagedDataAccess.Types;

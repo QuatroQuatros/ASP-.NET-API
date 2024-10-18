@@ -1,4 +1,4 @@
-﻿namespace GestaoDeResiduos.Responses
+﻿namespace GestaoDeResiduos.ViewModels.Responses
 {
     public class BaseApiResponse<T>
     {

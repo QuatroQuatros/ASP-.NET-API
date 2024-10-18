@@ -1,8 +1,8 @@
-﻿using GestaoDeResiduos.Responses;
-using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using GestaoDeResiduos.Exceptions;
+using GestaoDeResiduos.ViewModels.Responses;
 
 namespace GestaoDeResiduos.Filters
 {

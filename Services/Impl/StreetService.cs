@@ -1,8 +1,8 @@
 ﻿using GestaoDeResiduos.Exceptions;
 using GestaoDeResiduos.Models;
 using GestaoDeResiduos.Repositories;
-using GestaoDeResiduos.Responses;
 using GestaoDeResiduos.ViewModels;
+using GestaoDeResiduos.ViewModels.Responses;
 using GestaoDeResiduos.ViewModels.Update;
 
 namespace GestaoDeResiduos.Services.Impl;
@@ -45,7 +45,7 @@ public class StreetService : CrudService<StreetModel, StreetViewModel, StreetVie
 
             await _repository.UpdateAsync(street);
             return MapToViewModelResponse(street);
-        }catch (NotFoundException e)
+        }catch (NotFoundException)
         {
             throw new NotFoundException("Rua não encontrada.");
         }
@@ -83,7 +83,7 @@ public class StreetService : CrudService<StreetModel, StreetViewModel, StreetVie
         {
             await _districtRepository.GetByIdAsync(districtId);
 
-        }catch (NotFoundException e)
+        }catch (NotFoundException)
         {
             throw new NotFoundException("Bairro não encontrado.");
         }

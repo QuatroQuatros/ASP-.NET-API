@@ -1,8 +1,8 @@
 ﻿using GestaoDeResiduos.Exceptions;
 using GestaoDeResiduos.Models;
 using GestaoDeResiduos.Repositories;
-using GestaoDeResiduos.Responses;
 using GestaoDeResiduos.ViewModels;
+using GestaoDeResiduos.ViewModels.Responses;
 using GestaoDeResiduos.ViewModels.Update;
 
 namespace GestaoDeResiduos.Services.Impl;
@@ -45,7 +45,7 @@ public class DistrictService : CrudService<DistrictModel, DistrictViewModel, Dis
 
             await _repository.UpdateAsync(district);
             return MapToViewModelResponse(district);
-        }catch (NotFoundException e)
+        }catch (NotFoundException)
         {
             throw new NotFoundException("Bairro não encontrado.");
         }
@@ -83,7 +83,7 @@ public class DistrictService : CrudService<DistrictModel, DistrictViewModel, Dis
         {
             await _regionrepository.GetByIdAsync(regionId);
 
-        }catch (NotFoundException e)
+        }catch (NotFoundException)
         {
             throw new NotFoundException("Região não encontrada.");
         }

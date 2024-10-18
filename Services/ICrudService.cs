@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using GestaoDeResiduos.Responses;
+﻿using GestaoDeResiduos.ViewModels.Responses;
 
 namespace GestaoDeResiduos.Services
 {

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using GestaoDeResiduos.Infra;
 using GestaoDeResiduos.Models;
-using GestaoDeResiduos.Responses;
 using GestaoDeResiduos.ViewModels;
+using GestaoDeResiduos.ViewModels.Responses;
 using Microsoft.EntityFrameworkCore;
 
 namespace GestaoDeResiduos.Repositories.Impl

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using GestaoDeResiduos.Exceptions;
 using GestaoDeResiduos.Infra;
-using GestaoDeResiduos.Responses;
+using GestaoDeResiduos.ViewModels.Responses;
 
 namespace GestaoDeResiduos.Repositories.Impl
 {

@@ -1,7 +1,7 @@
-﻿using GestaoDeResiduos.Responses;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Linq;
+using GestaoDeResiduos.ViewModels.Responses;
 
 namespace GestaoDeResiduos.Filters
 {

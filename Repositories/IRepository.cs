@@ -1,4 +1,4 @@
-﻿using GestaoDeResiduos.Responses;
+﻿using GestaoDeResiduos.ViewModels.Responses;
 
 namespace GestaoDeResiduos.Repositories
 {

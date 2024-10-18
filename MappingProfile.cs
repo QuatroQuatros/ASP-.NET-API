@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using GestaoDeResiduos.Models;
-using GestaoDeResiduos.Responses;
 using GestaoDeResiduos.ViewModels;
+using GestaoDeResiduos.ViewModels.Responses;
 
 
 namespace GestaoDeResiduos
