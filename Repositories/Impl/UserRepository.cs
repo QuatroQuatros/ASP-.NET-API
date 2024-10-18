@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using GestaoDeResiduos.Infra;
 using GestaoDeResiduos.Models;
-using GestaoDeResiduos.ViewModels;
 using GestaoDeResiduos.ViewModels.Responses;
 using Microsoft.EntityFrameworkCore;
 

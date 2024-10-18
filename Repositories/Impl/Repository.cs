@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using GestaoDeResiduos.Exceptions;
 using GestaoDeResiduos.Infra;
 using GestaoDeResiduos.ViewModels.Responses;

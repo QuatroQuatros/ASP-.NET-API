@@ -1,11 +1,8 @@
-﻿using System.Data;
-using GestaoDeResiduos.Exceptions;
+﻿using GestaoDeResiduos.Exceptions;
 using GestaoDeResiduos.Infra;
 using GestaoDeResiduos.Models;
 using GestaoDeResiduos.ViewModels.Responses;
 using Microsoft.EntityFrameworkCore;
-using Oracle.ManagedDataAccess.Client;
-using Oracle.ManagedDataAccess.Types;
 
 namespace GestaoDeResiduos.Repositories.Impl;
 
@@ -26,7 +23,6 @@ public class GarbageCollectedRepository : Repository<GarbageCollectedModel>, IGa
 
     public async Task<TrashResultState> GetStateMoreTrashAsync(int? stateId = null, int? collectionTypeId = null)
     {
-        
         var query = _context.GarbageCollected
             .Include(gc => gc.CollectionDay)
             .ThenInclude(cd => cd.Street)
@@ -40,13 +36,13 @@ public class GarbageCollectedRepository : Repository<GarbageCollectedModel>, IGa
         {
             try
             {
-                await _stateRepository.GetByIdAsync(stateId ?? stateId.Value);
+                await _stateRepository.GetByIdAsync(stateId.Value);
 
-            }catch (NotFoundException e)
+            }catch (NotFoundException)
             {
                 throw new NotFoundException("Estado não encontrado.");
             }
-            
+        
             query = query.Where(gc => gc.CollectionDay.Street.District.Region.State.Id == stateId.Value);
         }
 
@@ -76,7 +72,12 @@ public class GarbageCollectedRepository : Repository<GarbageCollectedModel>, IGa
             QuantidadeLixo = result.QuantidadeLixo,
             NomeEstado = result.NomeEstado,
             NomeColeta = result.NomeColeta
-        } : null; 
+        } : new TrashResultState
+        {
+            QuantidadeLixo = 0,
+            NomeEstado = "Estado Desconhecido",
+            NomeColeta = "Tipo de Coleta Desconhecido"
+        };
     }
     
     public async Task<TrashResultRegion> GetRegionMoreTrashAsync(int? regionId = null, int? collectionTypeId = null)
@@ -95,7 +96,7 @@ public class GarbageCollectedRepository : Repository<GarbageCollectedModel>, IGa
             {
                 await _regionRepository.GetByIdAsync(regionId ?? regionId.Value);
 
-            }catch (NotFoundException _)
+            }catch (NotFoundException)
             {
                 throw new NotFoundException("Região não encontrada.");
             }
@@ -123,13 +124,18 @@ public class GarbageCollectedRepository : Repository<GarbageCollectedModel>, IGa
             })
             .OrderByDescending(g => g.QuantidadeLixo)
             .FirstOrDefaultAsync();
-
+        
         return result != null ? new TrashResultRegion
         {
             QuantidadeLixo = result.QuantidadeLixo,
             NomeRegiao = result.NomeRegiao,
             NomeColeta = result.NomeColeta
-        } : null;
+        } : new TrashResultRegion
+        {
+            QuantidadeLixo = 0,
+            NomeRegiao = "Região Desconhecida",
+            NomeColeta = "Tipo de Coleta Desconhecido"
+        };
     }
     
     public async Task<TrashResultNeighborhood> GetNeighborhoodMoreTrashAsync(int? districtId = null, int? collectionTypeId = null)
@@ -147,7 +153,7 @@ public class GarbageCollectedRepository : Repository<GarbageCollectedModel>, IGa
             {
                 await _districtRepository.GetByIdAsync(districtId ?? districtId.Value);
 
-            }catch (NotFoundException _)
+            }catch (NotFoundException)
             {
                 throw new NotFoundException("Bairro não encontrado.");
             }
@@ -189,7 +195,7 @@ public class GarbageCollectedRepository : Repository<GarbageCollectedModel>, IGa
         {
             await _garbageCollectionTypeRepository.GetByIdAsync(collectionTypeId);
 
-        }catch (NotFoundException _)
+        }catch (NotFoundException)
         {
             throw new NotFoundException("Tipo de coleta não encontrado.");
         }

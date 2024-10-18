@@ -6,7 +6,7 @@
         public T? Data { get; set; }
         
 
-        public BaseApiResponse(string message, T data, string? token= null)
+        public BaseApiResponse(string message, T? data)
         {
             Message = message;
             Data = data;
