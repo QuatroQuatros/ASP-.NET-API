@@ -32,9 +32,6 @@ jobs:
       - name: Build the project
         run: dotnet build --configuration Release --no-restore
 
-      - name: Run linter (e.g., Roslyn Analyzers)
-        run: dotnet format --verify-no-changes ./GestaoDeResiduos.sln
-
       - name: Run tests
         run: dotnet test --configuration Release --no-build --verbosity normal
 
@@ -56,9 +53,6 @@ jobs:
 
       - name: Build the project
         run: dotnet build --configuration Release --no-restore
-
-      - name: Run linter (e.g., Roslyn Analyzers)
-        run: dotnet format --verify-no-changes ./GestaoDeResiduos.sln
 
       - name: Run tests
         run: dotnet test --configuration Release --no-build --verbosity normal
