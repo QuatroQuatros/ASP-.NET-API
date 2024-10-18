@@ -1,5 +1,4 @@
 ﻿using GestaoDeResiduos.Exceptions;
-using GestaoDeResiduos.Models;
 using GestaoDeResiduos.Services;
 using GestaoDeResiduos.ViewModels;
 using GestaoDeResiduos.ViewModels.Responses;
@@ -41,7 +40,7 @@ public class CollectionDayController : Controller
         {
             var collectionDay = await _collectionDayService.GetByIdAsync(id);
             return Ok(new BaseApiResponse<CollectionDayViewModelResponse>("Agendamento recuperado com sucesso.", collectionDay));
-        }catch (NotFoundException e)
+        }catch (NotFoundException)
         {
             return NotFound(new BaseApiResponse<CollectionDayViewModelResponse>("Agendamento não encontrado.", null));
         }
@@ -63,7 +62,7 @@ public class CollectionDayController : Controller
         {
             var collectionDay = await _collectionDayService.UpdateAsync(id, request);
             return Ok(new BaseApiResponse<CollectionDayViewModelResponse>("Agendamento atualizao com sucesso.", collectionDay));
-        }catch (NotFoundException e)
+        }catch (NotFoundException)
         {
             return NotFound(new BaseApiResponse<CollectionDayViewModelResponse>("Agendamento não encontrado.", null));
         }
@@ -77,7 +76,7 @@ public class CollectionDayController : Controller
         {
             await _collectionDayService.DeleteAsync(id);
             return NoContent();
-        }catch (NotFoundException e)
+        }catch (NotFoundException)
         {
             return NotFound(new BaseApiResponse<CollectionDayViewModelResponse>("Agendamento não encontrado.", null));
         }

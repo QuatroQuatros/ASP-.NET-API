@@ -40,7 +40,7 @@ public class DistrictController : Controller
         {
             var district = await _districtService.GetByIdAsync(id);
             return Ok(new BaseApiResponse<DistrictViewModelResponse>("Bairro recuperado com sucesso.", district));
-        }catch (NotFoundException e)
+        }catch (NotFoundException)
         {
             return NotFound(new BaseApiResponse<DistrictViewModelResponse>("Bairro não encontrado.", null));
         }
@@ -61,7 +61,7 @@ public class DistrictController : Controller
         {
             var district = await _districtService.UpdateAsync(id, request);
             return Ok(new BaseApiResponse<DistrictViewModelResponse>("Bairro atualizado com sucesso.", district));
-        }catch (NotFoundException e)
+        }catch (NotFoundException)
         {
             return NotFound(new BaseApiResponse<DistrictViewModelResponse>("Bairro não encontrado.", null));
         }
@@ -75,7 +75,7 @@ public class DistrictController : Controller
         {
             await _districtService.DeleteAsync(id);
             return NoContent();
-        }catch (NotFoundException e)
+        }catch (NotFoundException)
         {
             return NotFound(new BaseApiResponse<DistrictViewModelResponse>("Bairro não encontrado.", null));
         }

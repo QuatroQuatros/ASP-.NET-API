@@ -40,7 +40,7 @@ public class StreetController : Controller
         {
             var street = await _streetService.GetByIdAsync(id);
             return Ok(new BaseApiResponse<StreetViewModelResponse>("Rua recuperada com sucesso.", street));
-        }catch (NotFoundException e)
+        }catch (NotFoundException)
         {
             return NotFound(new BaseApiResponse<StreetViewModelResponse>("Rua não encontrada.", null));
         }
@@ -61,7 +61,7 @@ public class StreetController : Controller
         {
             var street = await _streetService.UpdateAsync(id, request);
             return Ok(new BaseApiResponse<StreetViewModelResponse>("Rua atualizada com sucesso.", street));
-        }catch (NotFoundException e)
+        }catch (NotFoundException)
         {
             return NotFound(new BaseApiResponse<StreetViewModelResponse>("Rua não encontrada.", null));
         }
@@ -75,7 +75,7 @@ public class StreetController : Controller
         {
             await _streetService.DeleteAsync(id);
             return NoContent();
-        }catch (NotFoundException e)
+        }catch (NotFoundException)
         {
             return NotFound(new BaseApiResponse<StreetViewModelResponse>("Rua não encontrada.", null));
         }

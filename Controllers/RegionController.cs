@@ -41,7 +41,7 @@ public class RegionController : Controller
         {
             var region = await _regionService.GetByIdAsync(id);
             return Ok(new BaseApiResponse<RegionViewModelResponse>("Região recuperada com sucesso.", region));
-        }catch (NotFoundException e)
+        }catch (NotFoundException)
         {
             return NotFound(new BaseApiResponse<RegionViewModelResponse>("Região não encontrada.", null));
         }
@@ -62,7 +62,7 @@ public class RegionController : Controller
         {
             var region = await _regionService.UpdateAsync(id, request);
             return Ok(new BaseApiResponse<RegionViewModelResponse>("Região atualizada com sucesso.", region));
-        }catch (NotFoundException e)
+        }catch (NotFoundException)
         {
             return NotFound(new BaseApiResponse<RegionViewModelResponse>("Região não encontrada.", null));
         }
@@ -76,7 +76,7 @@ public class RegionController : Controller
         {
             await _regionService.DeleteAsync(id);
             return NoContent();
-        }catch (NotFoundException e)
+        }catch (NotFoundException)
         {
             return NotFound(new BaseApiResponse<RegionViewModelResponse>("Região não encontrada.", null));
         }

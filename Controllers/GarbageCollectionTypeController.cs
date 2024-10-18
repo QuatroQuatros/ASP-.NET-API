@@ -39,7 +39,7 @@ public class GarbageCollectionTypeController : Controller
         {
             var garbageCollectionType = await _garbageCollectionTypeService.GetByIdAsync(id);
             return Ok(new BaseApiResponse<GarbageCollectionTypeViewModelResponse>("Tipo de coleta recuperado com sucesso.", garbageCollectionType));
-        }catch (NotFoundException e)
+        }catch (NotFoundException)
         {
             return NotFound(new BaseApiResponse<GarbageCollectionTypeViewModelResponse>("Tipo de coleta não encontrado.", null));
         }
@@ -61,7 +61,7 @@ public class GarbageCollectionTypeController : Controller
         {
             var garbageCollectionType = await _garbageCollectionTypeService.UpdateAsync(id, request);
             return Ok(new BaseApiResponse<GarbageCollectionTypeViewModelResponse>("Tipo de coleta atualizada com sucesso.", garbageCollectionType));
-        }catch (NotFoundException e)
+        }catch (NotFoundException)
         {
             return NotFound(new BaseApiResponse<GarbageCollectionTypeViewModelResponse>("Tipo de coleta não encontrado.", null));
         }
@@ -75,7 +75,7 @@ public class GarbageCollectionTypeController : Controller
         {
             await _garbageCollectionTypeService.DeleteAsync(id);
             return NoContent();
-        }catch (NotFoundException e)
+        }catch (NotFoundException)
         {
             return NotFound(new BaseApiResponse<GarbageCollectionTypeViewModelResponse>("Tipo de coleta não encontrado.", null));
         }

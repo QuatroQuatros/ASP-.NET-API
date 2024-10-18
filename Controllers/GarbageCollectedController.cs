@@ -1,5 +1,4 @@
 ﻿using GestaoDeResiduos.Exceptions;
-using GestaoDeResiduos.Repositories.Impl;
 using GestaoDeResiduos.Services;
 using GestaoDeResiduos.ViewModels;
 using GestaoDeResiduos.ViewModels.Responses;
@@ -39,7 +38,7 @@ private readonly IGarbageCollectedService _garbageCollectedService;
         {
             var district = await _garbageCollectedService.GetByIdAsync(id);
             return Ok(new BaseApiResponse<GarbageCollectedViewModelResponse>("Busca de lixo coletado realizada com sucesso.", district));
-        }catch (NotFoundException e)
+        }catch (NotFoundException)
         {
             return NotFound(new BaseApiResponse<GarbageCollectedViewModelResponse>("Lixo coletado não encontrado.", null));
         }
@@ -60,7 +59,7 @@ private readonly IGarbageCollectedService _garbageCollectedService;
         {
             var garbageCollected = await _garbageCollectedService.UpdateAsync(id, request);
             return Ok(new BaseApiResponse<GarbageCollectedViewModelResponse>("Lixo coletado atualizado com sucesso.", garbageCollected));
-        }catch (NotFoundException e)
+        }catch (NotFoundException)
         {
             return NotFound(new BaseApiResponse<GarbageCollectedViewModelResponse>("Lixo coletado não encontrado.", null));
         }
@@ -74,7 +73,7 @@ private readonly IGarbageCollectedService _garbageCollectedService;
         {
             await _garbageCollectedService.DeleteAsync(id);
             return NoContent();
-        }catch (NotFoundException e)
+        }catch (NotFoundException)
         {
             return NotFound(new BaseApiResponse<GarbageCollectedViewModelResponse>("Lixo coletado não encontrado.", null));
         }

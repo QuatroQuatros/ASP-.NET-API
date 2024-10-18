@@ -5,7 +5,6 @@ using GestaoDeResiduos.ViewModels.Responses;
 using GestaoDeResiduos.ViewModels.Update;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace GestaoDeResiduos.Controllers
 {
@@ -39,7 +38,7 @@ namespace GestaoDeResiduos.Controllers
             {
                 var state = await _stateService.GetByIdAsync(id);
                 return Ok(new BaseApiResponse<StateViewModelResponse>("Estado recuperado com sucesso.", state));
-            }catch (NotFoundException e)
+            }catch (NotFoundException)
             {
                 return NotFound(new BaseApiResponse<StateViewModelResponse>("Estado não encontrado.", null));
             }
@@ -53,7 +52,7 @@ namespace GestaoDeResiduos.Controllers
             {
                 var state = await _stateService.GetByUfAsync(uf);
                 return Ok(new BaseApiResponse<StateViewModelResponse>("Estado recuperado com sucesso.", state));
-            }catch (NotFoundException e)
+            }catch (NotFoundException)
             {
                 return NotFound(new BaseApiResponse<StateViewModelResponse>("Estado não encontrado.", null));
             }
@@ -74,7 +73,7 @@ namespace GestaoDeResiduos.Controllers
             {
                 var state = await _stateService.UpdateAsync(id, request);
                 return Ok(new BaseApiResponse<StateViewModelResponse>("Estado atualizado com sucesso.", state));
-            }catch (NotFoundException e)
+            }catch (NotFoundException)
             {
                 return NotFound(new BaseApiResponse<StateViewModelResponse>("Estado não encontrado.", null));
             }
@@ -88,7 +87,7 @@ namespace GestaoDeResiduos.Controllers
             {
                 await _stateService.DeleteAsync(id);
                 return NoContent();
-            }catch (NotFoundException e)
+            }catch (NotFoundException)
             {
                 return NotFound(new BaseApiResponse<StateViewModelResponse>("Estado não encontrado.", null));
             }

@@ -4,7 +4,6 @@ using GestaoDeResiduos.ViewModels;
 using GestaoDeResiduos.ViewModels.Responses;
 using GestaoDeResiduos.ViewModels.Update;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GestaoDeResiduos.Controllers;
@@ -42,7 +41,7 @@ public class UserController : ControllerBase
         {
             var user = await _userService.GetUserByIdAsync(id);
             return Ok(new BaseApiResponse<UserViewModelResponse>("Usuário recuperado com sucesso.", user));
-        }catch (NotFoundException e)
+        }catch (NotFoundException)
         {
             return NotFound(new BaseApiResponse<UserViewModelResponse>("Usuário não encontrado.", null));
         }
@@ -64,7 +63,7 @@ public class UserController : ControllerBase
         {
             var user = await _userService.UpdateUserAsync(id, request);
             return Ok(new BaseApiResponse<UserViewModelResponse>("Usuário atualizado com sucesso.", user));
-        }catch (NotFoundException e)
+        }catch (NotFoundException)
         {
             return NotFound(new BaseApiResponse<UserViewModelResponse>("Usuário não encontrado.", null));
         }
@@ -78,7 +77,7 @@ public class UserController : ControllerBase
         {
             await _userService.DeleteUserAsync(id);
             return NoContent();
-        }catch (NotFoundException e)
+        }catch (NotFoundException)
         {
             return NotFound(new BaseApiResponse<UserViewModelResponse>("Usuário não encontrado.", null));
         }

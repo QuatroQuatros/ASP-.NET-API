@@ -1,10 +1,6 @@
-﻿using GestaoDeResiduos.Models;
-using GestaoDeResiduos.Services;
+﻿using GestaoDeResiduos.Services;
 using GestaoDeResiduos.ViewModels;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using GestaoDeResiduos.ViewModels.Responses;
 
